@@ -20,13 +20,16 @@ public class main {
         int i = 1;
         Map<Integer, Integer> mapTotalYars = new TreeMap<Integer, Integer>();
         Map<Integer, Game> games = new TreeMap<Integer, Game>();
-
-        Map<String, Integer> mapMediocrePercent = new TreeMap<String, Integer>();
+        Map<Integer, Integer> mapMediocreCount = new TreeMap<Integer, Integer>();
+        Map<Integer, Float> bestScore = new TreeMap<Integer, Float>();
+        Map<Integer, String> bestGame = new TreeMap<Integer, String>();
+        Map<Integer, Float> worstScore = new TreeMap<Integer, Float>();
+        Map<Integer, String> worstGame = new TreeMap<Integer, String>();
+        
 
         while (s != null) {
 //            System.out.println(i + ": " + s);
             String[] words = s.split(";");
-
             if (!words[6].equals("release_year")) {
                 Game g = new Game(i, words[0], words[1], words[2], Float.parseFloat(words[3]), words[4], words[5], Integer.parseInt(words[6]));
                 games.put(i, g);
@@ -46,10 +49,48 @@ public class main {
             } else {
                 mapTotalYars.put(games.get(k).releaseYear, mapTotalYars.get(games.get(k).releaseYear) + 1);
             }
+
+        }
+
+        for (Integer ky : mapTotalYars.keySet()) {
+            mapMediocreCount.put(ky, 0);
+            bestScore.put(ky, (float) 0);
+            bestGame.put(ky, "");
+            worstScore.put(ky, (float) 1000);
+            worstGame.put(ky, "");
+        }
+
+        for (Integer k : games.keySet()) {
+            int yaer = games.get(k).releaseYear;
+            float score = games.get(k).score;
+            if (score > bestScore.get(yaer)) {
+                bestScore.put(yaer, score);
+                bestGame.put(yaer, games.get(k).title);
+            }
+            if (score < worstScore.get(yaer)) {
+                worstScore.put(yaer, score);
+                worstGame.put(yaer, games.get(k).title);
+            }
+            
+            if (games.get(k).scorePharse.equals("Mediocre")) {
+                mapMediocreCount.put(yaer, mapMediocreCount.get(yaer) + 1);
+            }
+
         }
 
         for (Integer k : mapTotalYars.keySet()) {
             System.out.println(k + ":->" + mapTotalYars.get(k));
+        }
+
+        for (Integer k : mapMediocreCount.keySet()) {
+            System.out.println(k + " MediocresCount :->" + mapMediocreCount.get(k));
+        }
+        
+        for (Integer k : bestGame.keySet()) {
+            System.out.println(k + " BestGame :->" + bestGame.get(k)+ " score: "+bestScore.get(k));
+        }
+        for (Integer k : worstGame.keySet()) {
+            System.out.println(k + " WorstGame :->" + worstGame.get(k)+ " score: "+worstScore.get(k));
         }
     }
 
