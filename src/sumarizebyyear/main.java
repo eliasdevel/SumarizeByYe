@@ -25,7 +25,6 @@ public class main {
         Map<Integer, String> bestGame = new TreeMap<Integer, String>();
         Map<Integer, Float> worstScore = new TreeMap<Integer, Float>();
         Map<Integer, String> worstGame = new TreeMap<Integer, String>();
-        
 
         while (s != null) {
 //            System.out.println(i + ": " + s);
@@ -71,7 +70,7 @@ public class main {
                 worstScore.put(yaer, score);
                 worstGame.put(yaer, games.get(k).title);
             }
-            
+
             if (games.get(k).scorePharse.equals("Mediocre")) {
                 mapMediocreCount.put(yaer, mapMediocreCount.get(yaer) + 1);
             }
@@ -79,18 +78,19 @@ public class main {
         }
 
         for (Integer k : mapTotalYars.keySet()) {
-            System.out.println(k + ":->" + mapTotalYars.get(k));
+            System.out.println(k + " Games Count:->" + mapTotalYars.get(k));
         }
-
+        System.out.println("---");
         for (Integer k : mapMediocreCount.keySet()) {
             System.out.println(k + " MediocresCount :->" + mapMediocreCount.get(k));
         }
-        
+        System.out.println("---");
         for (Integer k : bestGame.keySet()) {
-            System.out.println(k + " BestGame :->" + bestGame.get(k)+ " score: "+bestScore.get(k));
+            System.out.println(k + " BestGame :->" + bestGame.get(k) + " score: " + bestScore.get(k));
         }
+        System.out.println("---");
         for (Integer k : worstGame.keySet()) {
-            System.out.println(k + " WorstGame :->" + worstGame.get(k)+ " score: "+worstScore.get(k));
+            System.out.println(k + " WorstGame :->" + worstGame.get(k) + " score: " + worstScore.get(k));
         }
     }
 
