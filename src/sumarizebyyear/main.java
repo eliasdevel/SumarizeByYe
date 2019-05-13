@@ -23,6 +23,7 @@ public class main {
         Map<Integer, Integer> mapTotalYars = new TreeMap<Integer, Integer>();
         Map<Integer, Game> games = new TreeMap<Integer, Game>();
         Map<Integer, Integer> mapMediocreCount = new TreeMap<Integer, Integer>();
+        Map<Integer, Integer> mapActionCount = new TreeMap<Integer, Integer>();
         Map<Integer, Float> bestScore = new TreeMap<Integer, Float>();
         Map<Integer, String> bestGame = new TreeMap<Integer, String>();
         Map<Integer, Float> worstScore = new TreeMap<Integer, Float>();
@@ -57,6 +58,7 @@ public class main {
 
         for (Integer ky : mapTotalYars.keySet()) {
             mapMediocreCount.put(ky, 0);
+            mapActionCount.put(ky, 0);
             bestScore.put(ky, (float) 0);
             bestGame.put(ky, "");
             worstScore.put(ky, (float) 1000);
@@ -77,6 +79,9 @@ public class main {
 
             if (games.get(k).scorePharse.equals("Mediocre")) {
                 mapMediocreCount.put(yaer, mapMediocreCount.get(yaer) + 1);
+            }
+            if (games.get(k).genre.equals("Action")) {
+                mapActionCount.put(yaer, mapActionCount.get(yaer) + 1);
             }
         }
 
@@ -203,8 +208,8 @@ public class main {
                 scores.put(yaer, score2019);
             }
         }
-        
-        DecimalFormat df = new DecimalFormat("#.##");      
+
+        DecimalFormat df = new DecimalFormat("#.##");
 
         ArrayList<Integer> reviews = new ArrayList();
         int contagemMediocres = 0;
@@ -466,6 +471,17 @@ public class main {
         for (Integer k : worstGame.keySet()) {
             System.out.println(k + " WorstGame :->" + worstGame.get(k) + " score: " + worstScore.get(k));
         }
+        int actionCount = 0;
+        int ya = 0;
+        for (Integer k : mapActionCount.keySet()) {
+            if (actionCount < mapActionCount.get(k)) {
+                actionCount = mapActionCount.get(k);
+                ya = k;
+            }
+
+           
+        }
+        System.out.println("Most action games in "+ya +" with "+actionCount +" Games");
     }
 
 }
