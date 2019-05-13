@@ -5,6 +5,7 @@
  */
 package sumarizebyyear;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
@@ -202,6 +203,8 @@ public class main {
                 scores.put(yaer, score2019);
             }
         }
+        
+        DecimalFormat df = new DecimalFormat("#.##");      
 
         ArrayList<Integer> reviews = new ArrayList();
         int contagemMediocres = 0;
@@ -213,7 +216,7 @@ public class main {
         System.out.println("---");
         for (Integer k : mapMediocreCount.keySet()) {
             //System.out.println(k + " MediocresCount :->" + mapMediocreCount.get(k));
-            System.out.println(k + " Mediocres% :->" + (reviews.get(contagemMediocres) / mapMediocreCount.get(k)));
+            System.out.println(k + " Mediocres over total:->" + df.format(Double.parseDouble(reviews.get(contagemMediocres) + "") / Double.parseDouble(mapMediocreCount.get(k) + "")) + "%");
             contagemMediocres++;
         }
 
@@ -222,7 +225,7 @@ public class main {
         ArrayList<Float> mediaScore = new ArrayList();
         for (Integer k : scores.keySet()) {
             //System.out.println(k + " MediocresCount :->" + mapMediocreCount.get(k));
-            System.out.println(k + " ScoresMedium :->" + (scores.get(k)) / reviews.get(contagemMediocres));
+            System.out.println(k + " ScoresMedium :->" + df.format((scores.get(k)) / reviews.get(contagemMediocres)));
             mediaScore.add((scores.get(k)) / reviews.get(contagemMediocres));
             contagemMediocres++;
         }
@@ -451,7 +454,7 @@ public class main {
         contagemMediocres = 0;
         for (Integer k : scoresPop.keySet()) {
             //System.out.println(k + " MediocresCount :->" + mapMediocreCount.get(k));
-            System.out.println(k + " ScoresPop :->" + (scoresPop.get(k)) / reviews.get(contagemMediocres));
+            System.out.println(k + " ScoresDesPadPop :->" + df.format((scoresPop.get(k)) / reviews.get(contagemMediocres)));
             contagemMediocres++;
         }
 
